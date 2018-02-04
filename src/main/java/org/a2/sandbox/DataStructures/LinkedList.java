@@ -1,16 +1,18 @@
 package org.a2.sandbox.DataStructures;
 
 public class LinkedList<E> {
-    Node<E> root;
-    Node<E> last;
-    Integer size = 0;
+    private Node<E> root;
+    private Node<E> last;
+    private Node<E> index;
+
+    private Integer size = 0;
 
 
-    public void add(E element) {
+    public LinkedList<E> add(E element) {
         Node<E> newNode = new Node<E>(element);
 
         if (this.last == null) {
-            this.last = this.root = newNode;
+            this.index = this.last = this.root = newNode;
         } else {
             // Insert last
             this.last.next = newNode;
@@ -18,6 +20,24 @@ public class LinkedList<E> {
             this.last = newNode;
         }
         this.size++;
+
+        return this;
+    }
+
+    public LinkedList<E> addFirst(E element) {
+        Node<E> newNode = new Node<E>(element);
+
+        if (this.last == null) {
+            this.index = this.last = this.root = newNode;
+        } else {
+            // Insert first
+            this.root.previous= newNode;
+            newNode.next = this.root;
+            this.root = newNode;
+        }
+        this.size++;
+
+        return this;
     }
 
     public Integer size() {
@@ -30,6 +50,10 @@ public class LinkedList<E> {
 
     public boolean remove(E element) {
         Node<E> nodeToRemove = this.findNode(element);
+        return this.remove(nodeToRemove);
+    }
+
+    public boolean remove(Node<E> nodeToRemove) {
 
         if (nodeToRemove == null) {
             return false;
@@ -38,13 +62,17 @@ public class LinkedList<E> {
         if (nodeToRemove.previous != null) {
             nodeToRemove.previous.next = nodeToRemove.next;
         } else {
-            this.root = nodeToRemove.next;
+            this.index = this.root = nodeToRemove.next;
         }
 
         if (nodeToRemove.next != null) {
             nodeToRemove.next.previous = nodeToRemove.previous;
         } else {
             this.last = nodeToRemove.previous;
+        }
+
+        if (nodeToRemove.equals(this.index)){
+            this.index = nodeToRemove.previous;
         }
 
         this.size--;
@@ -57,6 +85,26 @@ public class LinkedList<E> {
             return null;
         }
         return this.last.data;
+    }
+
+    public E next(){
+        Node<E> current = this.index;
+        this.index = current.next;
+        return current.data;
+    }
+
+    public Node<E> nextNode(){
+        Node<E> current = this.index;
+        this.index = current.next;
+        return current;
+    }
+
+    public void reset(){
+        this.index = this.root;
+    }
+
+    public boolean hasNext(){
+        return this.index != null;
     }
 
     public boolean isEmpty() {
@@ -79,21 +127,17 @@ public class LinkedList<E> {
         return current;
     }
 
-}
+    public boolean equals(LinkedList<E> other){
+        this.reset();
+        other.reset();
 
-class Node<E> {
-    Node<E> next,
-            previous;
+        while (this.hasNext() && other.hasNext()){
+            if(!this.next().equals(other.next())){
+                return false;
+            }
+        }
 
-    E data;
-
-    public Node(E data) {
-        this.data = data;
+        return this.hasNext() == other.hasNext();
     }
 
-    public Node(Node next, Node previous, E data) {
-        this.next = next;
-        this.previous = previous;
-        this.data = data;
-    }
 }
