@@ -1,6 +1,6 @@
 package DataStructures;
 
-import org.a2.sandbox.DataStructures.LinkedList;
+import org.a2.sandbox.DataStructures.LinkedList.LinkedList;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

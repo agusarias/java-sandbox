@@ -1,6 +1,6 @@
 package org.a2.sandbox.Problems.SumLinkedLists;
 
-import org.a2.sandbox.DataStructures.LinkedList;
+import org.a2.sandbox.DataStructures.LinkedList.LinkedList;
 
 public class Solution {
 

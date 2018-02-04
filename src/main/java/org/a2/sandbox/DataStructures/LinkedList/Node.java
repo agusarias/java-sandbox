@@ -1,4 +1,4 @@
-package org.a2.sandbox.DataStructures;
+package org.a2.sandbox.DataStructures.LinkedList;
 
 public class Node<E> {
     public Node<E> next,

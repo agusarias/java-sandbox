@@ -1,4 +1,4 @@
-package org.a2.sandbox.DataStructures;
+package org.a2.sandbox.DataStructures.LinkedList;
 
 public class LinkedList<E> {
     private Node<E> root;

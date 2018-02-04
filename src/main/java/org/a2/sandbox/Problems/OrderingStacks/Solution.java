@@ -43,7 +43,7 @@ public class Solution {
             }
             aux.push(min);
             max = min = null;
-            
+
             System.out.println("Stack: ");
             System.out.println(stack);
             System.out.println("Aux: ");

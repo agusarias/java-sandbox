@@ -1,7 +1,7 @@
 package org.a2.sandbox.Problems.RemoveDup;
 
-import org.a2.sandbox.DataStructures.LinkedList;
-import org.a2.sandbox.DataStructures.Node;
+import org.a2.sandbox.DataStructures.LinkedList.LinkedList;
+import org.a2.sandbox.DataStructures.LinkedList.Node;
 
 import java.util.HashSet;
 
