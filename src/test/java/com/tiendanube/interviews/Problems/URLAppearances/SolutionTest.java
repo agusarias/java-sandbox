@@ -28,39 +28,41 @@ public class SolutionTest {
 
     @Test
     public void testTenEqualUrls() {
-        Solution solution = new Solution();
         long expectedResult = 10;
         List<String> urls = this.readURLsFromFile("10_equal");
         String url = urls.get(0);
+        Solution solution = new Solution(urls);
 
-        long result = solution.solve(urls, url);
+        measureStart();
+        long result = solution.solve(url);
+        measureStop("testTenEqualUrls");
 
         assertEquals(expectedResult, result);
     }
 
     @Test
     public void testTenDifferentUrls() {
-        Solution solution = new Solution();
         long expectedResult = 1;
         List<String> urls = this.readURLsFromFile("10_different");
         String url = urls.get(0);
+        Solution solution = new Solution(urls);
 
         measureStart();
-        long result = solution.solve(urls, url);
-        measureStop("measureStart");
+        long result = solution.solve(url);
+        measureStop("testTenDifferentUrls");
 
         assertEquals(expectedResult, result);
     }
 
     @Test
     public void testLargeAndTargetManyTimes() {
-        Solution solution = new Solution();
         long expectedResult = 635;
         List<String> urls = this.readURLsFromFile("10000");
         String url = "https://www.example.com/";
+        Solution solution = new Solution(urls);
 
         measureStart();
-        long result = solution.solve(urls, url);
+        long result = solution.solve(url);
         measureStop("testLargeAndTargetManyTimes");
 
         assertEquals(expectedResult, result);
@@ -69,16 +71,16 @@ public class SolutionTest {
 
     @Test
     public void testLargeAndTwoTargets() {
-        Solution solution = new Solution();
         long expectedResultOne = 655,
                 expectedResultTwo = 635;
         List<String> urls = this.readURLsFromFile("10000");
         String targetOne = "http://www.example.com/";
         String targetTwo = "https://www.example.com/";
+        Solution solution = new Solution(urls);
 
         measureStart();
-        long resultOne = solution.solve(urls, targetOne);
-        long resultTwo = solution.solve(urls, targetTwo);
+        long resultOne = solution.solve(targetOne);
+        long resultTwo = solution.solve(targetTwo);
         measureStop("testLargeAndTwoTargets");
 
         assertEquals(expectedResultOne, resultOne);
@@ -87,8 +89,9 @@ public class SolutionTest {
 
     @Test
     public void testLargeAndTenTargets() {
-        Solution solution = new Solution();
         List<String> urls = this.readURLsFromFile("10000");
+        Solution solution = new Solution(urls);
+
         List<Target> targets = Arrays.asList(
                 new Target("https://www.example.com/", 635),
                 new Target("http://www.example.com/", 655),
@@ -106,7 +109,7 @@ public class SolutionTest {
         targets.forEach(target -> {
             assertEquals("Asserting " + target.url + " failed",
                     target.expectedOccurences,
-                    solution.solve(urls, target.url));
+                    solution.solve(target.url));
         });
         measureStop("testLargeAndTenTargets");
     }
@@ -114,130 +117,74 @@ public class SolutionTest {
 
     @Test
     public void testLargeAndOneHundredTargets() {
-        Solution solution = new Solution();
         List<String> urls = this.readURLsFromFile("10000");
-        List<Target> targets = Arrays.asList(
-                new Target("https://www.example.com/", 635),
-                new Target("http://www.example.com/", 655),
-                new Target("https://example.com/", 392),
-                new Target("http://agreement.example.com/", 4),
-                new Target("https://www.example.net/?art=bit", 1),
-                new Target("https://example.org/", 61),
-                new Target("http://appliance.example.net/?argument=ball", 1),
-                new Target("http://brake.example.com/", 7),
-                new Target("http://example.com/#argument", 3),
-                new Target("https://example.com/army/birds", 1),
-                new Target("https://www.example.com/", 635),
-                new Target("http://www.example.com/", 655),
-                new Target("https://example.com/", 392),
-                new Target("http://agreement.example.com/", 4),
-                new Target("https://www.example.net/?art=bit", 1),
-                new Target("https://example.org/", 61),
-                new Target("http://appliance.example.net/?argument=ball", 1),
-                new Target("http://brake.example.com/", 7),
-                new Target("http://example.com/#argument", 3),
-                new Target("https://example.com/army/birds", 1),
-                new Target("https://www.example.com/", 635),
-                new Target("http://www.example.com/", 655),
-                new Target("https://example.com/", 392),
-                new Target("http://agreement.example.com/", 4),
-                new Target("https://www.example.net/?art=bit", 1),
-                new Target("https://example.org/", 61),
-                new Target("http://appliance.example.net/?argument=ball", 1),
-                new Target("http://brake.example.com/", 7),
-                new Target("http://example.com/#argument", 3),
-                new Target("https://example.com/army/birds", 1),
-                new Target("https://www.example.com/", 635),
-                new Target("http://www.example.com/", 655),
-                new Target("https://example.com/", 392),
-                new Target("http://agreement.example.com/", 4),
-                new Target("https://www.example.net/?art=bit", 1),
-                new Target("https://example.org/", 61),
-                new Target("http://appliance.example.net/?argument=ball", 1),
-                new Target("http://brake.example.com/", 7),
-                new Target("http://example.com/#argument", 3),
-                new Target("https://example.com/army/birds", 1),
-                new Target("https://www.example.com/", 635),
-                new Target("http://www.example.com/", 655),
-                new Target("https://example.com/", 392),
-                new Target("http://agreement.example.com/", 4),
-                new Target("https://www.example.net/?art=bit", 1),
-                new Target("https://example.org/", 61),
-                new Target("http://appliance.example.net/?argument=ball", 1),
-                new Target("http://brake.example.com/", 7),
-                new Target("http://example.com/#argument", 3),
-                new Target("https://example.com/army/birds", 1),
-                new Target("https://www.example.com/", 635),
-                new Target("http://www.example.com/", 655),
-                new Target("https://example.com/", 392),
-                new Target("http://agreement.example.com/", 4),
-                new Target("https://www.example.net/?art=bit", 1),
-                new Target("https://example.org/", 61),
-                new Target("http://appliance.example.net/?argument=ball", 1),
-                new Target("http://brake.example.com/", 7),
-                new Target("http://example.com/#argument", 3),
-                new Target("https://example.com/army/birds", 1),
-                new Target("https://www.example.com/", 635),
-                new Target("http://www.example.com/", 655),
-                new Target("https://example.com/", 392),
-                new Target("http://agreement.example.com/", 4),
-                new Target("https://www.example.net/?art=bit", 1),
-                new Target("https://example.org/", 61),
-                new Target("http://appliance.example.net/?argument=ball", 1),
-                new Target("http://brake.example.com/", 7),
-                new Target("http://example.com/#argument", 3),
-                new Target("https://example.com/army/birds", 1),
-                new Target("https://www.example.com/", 635),
-                new Target("http://www.example.com/", 655),
-                new Target("https://example.com/", 392),
-                new Target("http://agreement.example.com/", 4),
-                new Target("https://www.example.net/?art=bit", 1),
-                new Target("https://example.org/", 61),
-                new Target("http://appliance.example.net/?argument=ball", 1),
-                new Target("http://brake.example.com/", 7),
-                new Target("http://example.com/#argument", 3),
-                new Target("https://example.com/army/birds", 1),
-                new Target("https://www.example.com/", 635),
-                new Target("http://www.example.com/", 655),
-                new Target("https://example.com/", 392),
-                new Target("http://agreement.example.com/", 4),
-                new Target("https://www.example.net/?art=bit", 1),
-                new Target("https://example.org/", 61),
-                new Target("http://appliance.example.net/?argument=ball", 1),
-                new Target("http://brake.example.com/", 7),
-                new Target("http://example.com/#argument", 3),
-                new Target("https://example.com/army/birds", 1),
-                new Target("https://www.example.com/", 635),
-                new Target("http://www.example.com/", 655),
-                new Target("https://example.com/", 392),
-                new Target("http://agreement.example.com/", 4),
-                new Target("https://www.example.net/?art=bit", 1),
-                new Target("https://example.org/", 61),
-                new Target("http://appliance.example.net/?argument=ball", 1),
-                new Target("http://brake.example.com/", 7),
-                new Target("http://example.com/#argument", 3),
-                new Target("https://example.com/army/birds", 1));
+        Solution solution = new Solution(urls);
+        List<Target> targets = new ArrayList<>();
 
+        // Multiply input up to 100
+        for (int i = 0; i < 10; i++) {
+            targets.add(new Target("https://www.example.com/", 635));
+            targets.add(new Target("http://www.example.com/", 655));
+            targets.add(new Target("https://example.com/", 392));
+            targets.add(new Target("http://agreement.example.com/", 4));
+            targets.add(new Target("https://www.example.net/?art=bit", 1));
+            targets.add(new Target("https://example.org/", 61));
+            targets.add(new Target("http://appliance.example.net/?argument=ball", 1));
+            targets.add(new Target("http://brake.example.com/", 7));
+            targets.add(new Target("http://example.com/#argument", 3));
+            targets.add(new Target("https://example.com/army/birds", 1));
+        }
 
         measureStart();
         targets.forEach(target -> {
             assertEquals("Asserting " + target.url + " failed",
                     target.expectedOccurences,
-                    solution.solve(urls, target.url));
+                    solution.solve(target.url));
         });
 
         measureStop("testLargeAndOneHundredTargets");
     }
 
+
+    @Test
+    public void testLargeAndOneThousandTargets() {
+        List<String> urls = this.readURLsFromFile("10000");
+        Solution solution = new Solution(urls);
+        List<Target> targets = new ArrayList<>();
+
+        // Multiply input up to 1000
+        for (int i = 0; i < 100; i++) {
+            targets.add(new Target("https://www.example.com/", 635));
+            targets.add(new Target("http://www.example.com/", 655));
+            targets.add(new Target("https://example.com/", 392));
+            targets.add(new Target("http://agreement.example.com/", 4));
+            targets.add(new Target("https://www.example.net/?art=bit", 1));
+            targets.add(new Target("https://example.org/", 61));
+            targets.add(new Target("http://appliance.example.net/?argument=ball", 1));
+            targets.add(new Target("http://brake.example.com/", 7));
+            targets.add(new Target("http://example.com/#argument", 3));
+            targets.add(new Target("https://example.com/army/birds", 1));
+        }
+
+        measureStart();
+        targets.forEach(target -> {
+            assertEquals("Asserting " + target.url + " failed",
+                    target.expectedOccurences,
+                    solution.solve(target.url));
+        });
+
+        measureStop("testLargeAndOneThousandTargets");
+    }
+
     @Test
     public void testTargetNotFound() {
-        Solution solution = new Solution();
         long expectedResult = 0;
         List<String> urls = this.readURLsFromFile("20_target_not_found");
         String url = "http://google.com";
+        Solution solution = new Solution(urls);
 
         measureStart();
-        long result = solution.solve(urls, url);
+        long result = solution.solve(url);
         measureStop("testTargetNotFound");
 
         assertEquals(expectedResult, result);
