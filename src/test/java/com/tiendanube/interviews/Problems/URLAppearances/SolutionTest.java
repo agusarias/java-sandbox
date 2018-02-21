@@ -1,4 +1,4 @@
-package com.tiendanube.interviews.Problems.RepeatedURLs;
+package com.tiendanube.interviews.Problems.URLAppearances;
 
 import org.junit.Test;
 
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 
 public class SolutionTest {
 
-    private static final String resourcesPath = "/src/test/java/com/tiendanube/interviews/Problems/RepeatedURLs/";
+    private static final String resourcesPath = "/src/test/java/com/tiendanube/interviews/Problems/URLAppearances/";
     private long startTime = 0;
 
     private void measureStart() {
@@ -109,6 +109,124 @@ public class SolutionTest {
                     solution.solve(urls, target.url));
         });
         measureStop("testLargeAndTenTargets");
+    }
+
+
+    @Test
+    public void testLargeAndOneHundredTargets() {
+        Solution solution = new Solution();
+        List<String> urls = this.readURLsFromFile("10000");
+        List<Target> targets = Arrays.asList(
+                new Target("https://www.example.com/", 635),
+                new Target("http://www.example.com/", 655),
+                new Target("https://example.com/", 392),
+                new Target("http://agreement.example.com/", 4),
+                new Target("https://www.example.net/?art=bit", 1),
+                new Target("https://example.org/", 61),
+                new Target("http://appliance.example.net/?argument=ball", 1),
+                new Target("http://brake.example.com/", 7),
+                new Target("http://example.com/#argument", 3),
+                new Target("https://example.com/army/birds", 1),
+                new Target("https://www.example.com/", 635),
+                new Target("http://www.example.com/", 655),
+                new Target("https://example.com/", 392),
+                new Target("http://agreement.example.com/", 4),
+                new Target("https://www.example.net/?art=bit", 1),
+                new Target("https://example.org/", 61),
+                new Target("http://appliance.example.net/?argument=ball", 1),
+                new Target("http://brake.example.com/", 7),
+                new Target("http://example.com/#argument", 3),
+                new Target("https://example.com/army/birds", 1),
+                new Target("https://www.example.com/", 635),
+                new Target("http://www.example.com/", 655),
+                new Target("https://example.com/", 392),
+                new Target("http://agreement.example.com/", 4),
+                new Target("https://www.example.net/?art=bit", 1),
+                new Target("https://example.org/", 61),
+                new Target("http://appliance.example.net/?argument=ball", 1),
+                new Target("http://brake.example.com/", 7),
+                new Target("http://example.com/#argument", 3),
+                new Target("https://example.com/army/birds", 1),
+                new Target("https://www.example.com/", 635),
+                new Target("http://www.example.com/", 655),
+                new Target("https://example.com/", 392),
+                new Target("http://agreement.example.com/", 4),
+                new Target("https://www.example.net/?art=bit", 1),
+                new Target("https://example.org/", 61),
+                new Target("http://appliance.example.net/?argument=ball", 1),
+                new Target("http://brake.example.com/", 7),
+                new Target("http://example.com/#argument", 3),
+                new Target("https://example.com/army/birds", 1),
+                new Target("https://www.example.com/", 635),
+                new Target("http://www.example.com/", 655),
+                new Target("https://example.com/", 392),
+                new Target("http://agreement.example.com/", 4),
+                new Target("https://www.example.net/?art=bit", 1),
+                new Target("https://example.org/", 61),
+                new Target("http://appliance.example.net/?argument=ball", 1),
+                new Target("http://brake.example.com/", 7),
+                new Target("http://example.com/#argument", 3),
+                new Target("https://example.com/army/birds", 1),
+                new Target("https://www.example.com/", 635),
+                new Target("http://www.example.com/", 655),
+                new Target("https://example.com/", 392),
+                new Target("http://agreement.example.com/", 4),
+                new Target("https://www.example.net/?art=bit", 1),
+                new Target("https://example.org/", 61),
+                new Target("http://appliance.example.net/?argument=ball", 1),
+                new Target("http://brake.example.com/", 7),
+                new Target("http://example.com/#argument", 3),
+                new Target("https://example.com/army/birds", 1),
+                new Target("https://www.example.com/", 635),
+                new Target("http://www.example.com/", 655),
+                new Target("https://example.com/", 392),
+                new Target("http://agreement.example.com/", 4),
+                new Target("https://www.example.net/?art=bit", 1),
+                new Target("https://example.org/", 61),
+                new Target("http://appliance.example.net/?argument=ball", 1),
+                new Target("http://brake.example.com/", 7),
+                new Target("http://example.com/#argument", 3),
+                new Target("https://example.com/army/birds", 1),
+                new Target("https://www.example.com/", 635),
+                new Target("http://www.example.com/", 655),
+                new Target("https://example.com/", 392),
+                new Target("http://agreement.example.com/", 4),
+                new Target("https://www.example.net/?art=bit", 1),
+                new Target("https://example.org/", 61),
+                new Target("http://appliance.example.net/?argument=ball", 1),
+                new Target("http://brake.example.com/", 7),
+                new Target("http://example.com/#argument", 3),
+                new Target("https://example.com/army/birds", 1),
+                new Target("https://www.example.com/", 635),
+                new Target("http://www.example.com/", 655),
+                new Target("https://example.com/", 392),
+                new Target("http://agreement.example.com/", 4),
+                new Target("https://www.example.net/?art=bit", 1),
+                new Target("https://example.org/", 61),
+                new Target("http://appliance.example.net/?argument=ball", 1),
+                new Target("http://brake.example.com/", 7),
+                new Target("http://example.com/#argument", 3),
+                new Target("https://example.com/army/birds", 1),
+                new Target("https://www.example.com/", 635),
+                new Target("http://www.example.com/", 655),
+                new Target("https://example.com/", 392),
+                new Target("http://agreement.example.com/", 4),
+                new Target("https://www.example.net/?art=bit", 1),
+                new Target("https://example.org/", 61),
+                new Target("http://appliance.example.net/?argument=ball", 1),
+                new Target("http://brake.example.com/", 7),
+                new Target("http://example.com/#argument", 3),
+                new Target("https://example.com/army/birds", 1));
+
+
+        measureStart();
+        targets.forEach(target -> {
+            assertEquals("Asserting " + target.url + " failed",
+                    target.expectedOccurences,
+                    solution.solve(urls, target.url));
+        });
+
+        measureStop("testLargeAndOneHundredTargets");
     }
 
     @Test
